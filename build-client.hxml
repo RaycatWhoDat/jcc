@@ -1,0 +1,8 @@
+build-deps.hxml
+-D cix-output=styles.css
+
+-lib cix
+-lib coconut.vdom
+
+-main JCC
+-js dist/jcc.js

@@ -4,20 +4,11 @@ import js.html.*;
 import coconut.ui.*;
 
 class Placeholder extends View {
-  static var ROOT = cix.Style.rule('
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+  static var ROOT = cix.Style.rule(AppTools.insertStyles("Placeholder"));  
 
-                                   p { color: red; }
-                                   ');  
-  
-
-  function render() '
-      <div class=${ROOT}>
-  <p>Ready!</p>
-  </div>
-  ';
+  function render() {
+    return AppTools.insertTemplate("Placeholder");
+  }
 }
+
+// (modify-syntax-entry ?\' "\"")

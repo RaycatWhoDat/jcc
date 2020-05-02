@@ -1,6 +1,0 @@
-build-deps.hxml
--lib hxnodejs
--lib hxnodelibs
-
--main DevServer
--js dist/server.js

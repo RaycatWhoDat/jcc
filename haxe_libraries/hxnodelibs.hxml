@@ -1,3 +1,0 @@
-# @install: lix --silent download "gh://github.com/HaxeFoundation/hxnodelibs#27f33d7199da7578e2cfb885266ea319a5b937b5" into hxnodelibs/0.1.0/github/27f33d7199da7578e2cfb885266ea319a5b937b5
--cp ${HAXE_LIBCACHE}/hxnodelibs/0.1.0/github/27f33d7199da7578e2cfb885266ea319a5b937b5/
--D hxnodelibs=0.1.0

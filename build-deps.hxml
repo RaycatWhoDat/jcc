@@ -1,7 +1,0 @@
--D js-es=6
--D analyzer-optimize
--D no-deprecation-warnings
-
--dce full
-
--cp src

@@ -1,0 +1,44 @@
+$rps-black: #2c2c2c;
+$rps-main-primary: #9f84bd;
+$rps-main-secondary: #d4c1ec;
+$rps-white: #efefef;
+$rps-accent-primary: #a2bd84;
+$rps-accent-secondary: #d9ecc1;
+
+* {
+    user-select: none;
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    overflow: hidden;
+    display: flex;
+}
+
+.serif {
+    font-family: 'Playfair Display', serif;
+}
+
+.sans-serif {
+    font-family: 'Montserrat', sans-serif;
+}
+
+.bold {
+    font-weight: bold;
+}
+
+.large-letter {
+    font-size: 72px;
+    line-height: 72px;
+}
+
+.italic {
+    font-style: italic;
+}

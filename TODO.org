@@ -1,10 +1,12 @@
 #+TITLE: RPS Todo List
 
-* [2/5] <2020-05-03 Sun>
+* [3/6] <2020-05-03 Sun>
 ** TODO Add some enums
 ** DONE Rename the project
 ** DONE Start building out the Vuex stores
-** TODO Start building out the database connections
+** DONE Start building out the database connections
+** TODO Fix the retrieval of the records
+*** If it doesn't work, yeet it and move on.
 ** TODO Build out the attract page
 * [0/2] <2020-05-04 Mon>
 ** TODO Build out the main Rock-Paper-Scissors interaction.

@@ -7,7 +7,6 @@ module.exports = {
         "plugin:vue/essential",
         "eslint:recommended",
         "@vue/typescript/recommended",
-        "@vue/prettier",
         "@vue/prettier/@typescript-eslint"
     ],
     parserOptions: {
@@ -16,12 +15,15 @@ module.exports = {
     rules: {
         "no-console": process.env.NODE_ENV === "production" ? "warn" : "off",
         "no-debugger": process.env.NODE_ENV === "production" ? "warn" : "off",
+        "vue/html-indent": "off",
+        "vue/script-indent": "off"
     },
     overrides: [
         {
             "files": ["*.vue"],
             "rules": {
-                "indent": "off"
+                "vue/html-indent": "off",
+                "vue/script-indent": "off"
             }
         }
     ]

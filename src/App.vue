@@ -1,6 +1,6 @@
 <template>
 <section id="application">
-    <aside id="sidebar" v-if="$route.name !== 'Attract'">
+    <aside id="sidebar" v-if="!hideSidebar">
         <div id="logo">
             <span class="large-letter serif">R</span>
         </div>
@@ -14,8 +14,8 @@
         </nav>
         <nav id="avatar-menu">
             <div id="avatar-popout" class="serif" v-if="popoutMenuActive">
+                <span class="popout-item bold" v-once>{{currentUser.username}}</span>
                 <span class="popout-item">Settings</span>
-                <span class="popout-item">FAQ</span>
                 <span class="popout-item">Help</span>
                 <hr />
                 <span class="popout-item">Sign Out</span>
@@ -33,18 +33,23 @@
 </template>
 
 <script>
+import { mapState, mapMutations } from 'vuex';
+import * as types from '@/store/mutation-types';
+
 export default {
     name: 'App',
     data() {
-        return {
-            popoutMenuActive: false
+return {
+hideSidebar: ['Attract', 'Missing'].includes(this.$route.name),
         }
-    },
-    methods: {
-        togglePopoutMenu: function () {
-            this.popoutMenuActive = !this.popoutMenuActive;
-        }
-    }
+},
+computed: mapState(['currentUser', 'popoutMenuActive']),
+methods: {
+...mapMutations({
+togglePopoutMenu: types.TOGGLE_POPOUT_MENU
+})
+}
+   
 }
 </script>
 
@@ -123,7 +128,8 @@ export default {
             top: -100%;
             padding: 10px;
             text-align: left;
-
+            box-shadow: 5px 5px 10px $rps-black;
+            
             .popout-item {
                 padding: 5px 0;
                 transition: color 0.5s;

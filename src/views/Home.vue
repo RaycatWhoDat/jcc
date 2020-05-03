@@ -1,7 +1,12 @@
 <template>
 <section id="dashboard">
     <section id="at-a-glance">
-        <SmallPanel v-for="stat in stats" :key="stat.id" :headerText="stat.headerText" :value="stat.value" />
+        <SmallPanel
+            v-for="stat in stats"
+            :key="stat.id"
+            :headerText="stat.headerText"
+            :value="stat.value"
+            :panelType="stat.panelType" />
     </section>
     <section id="main-area">
         <LargePanel headerText="Log" :entries="entries" />
@@ -20,15 +25,15 @@ import store from '@/store/index';
 import { mapState } from 'vuex';
 
 export default {
-name: "Home",
-store,
-computed: {
-...mapState({
-stats: ({ homeStore }) => homeStore.stats,
-brackets: ({ homeStore }) => homeStore.brackets,
-facts: ({ homeStore }) => homeStore.facts,
-entries: ({ homeStore }) => homeStore.entries,
-})},
+    name: "Home",
+    store,
+    computed: {
+        ...mapState({
+            stats: ({ homeStore }) => homeStore.stats,
+            brackets: ({ homeStore }) => homeStore.brackets,
+            facts: ({ homeStore }) => homeStore.facts,
+            entries: ({ homeStore }) => homeStore.entries,
+        })},
     components: {
         SmallPanel,
         LargePanel

@@ -5,9 +5,9 @@ const homeStore = {
                 { id: 1, icon: "medal", text: "Did you know? This capstone project is pain. But it's all that remains." }
             ],
             stats: [
-                { id: 1, headerText: "Current Balance", value: "$" + (Math.random() * 9999 + 1).toFixed(2) },
-                { id: 2, headerText: "Number of Brackets Entered", value: Math.floor(Math.random() * 50) + 1 },
-                { id: 3, headerText: "Number of Bets Won", value: Math.floor(Math.random() * 100) + 1 }
+                { id: 1, headerText: "Current Balance", panelType: 'currency', value: "$" + (Math.random() * 9999 + 1).toFixed(2) },
+                { id: 2, headerText: "Number of Brackets Entered", panelType: 'number', value: Math.floor(Math.random() * 50) + 1 },
+                { id: 3, headerText: "Number of Bets Won", panelType: 'number', value: Math.floor(Math.random() * 100) + 1 }
             ],
             entries: [
                 { id: 1, icon: "thumbs-up-outline", text: "Item 1" },

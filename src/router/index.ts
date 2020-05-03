@@ -1,10 +1,16 @@
 import Vue from "vue";
 import VueRouter, { RouteConfig } from "vue-router";
 import Home from "../views/Home.vue";
+import Attract from "../views/Attract.vue";
 
 Vue.use(VueRouter);
 
 const routes: Array<RouteConfig> = [
+    {
+        path: "/",
+        name: "Attract",
+        component: Attract
+    },
     {
         path: "/home",
         name: "Home",

@@ -20,10 +20,10 @@ import LargePanel from '@/components/LargePanel.vue';
 export default {
     name: "Home",
     data() {
-return {
-facts: [
-{ id: 1, icon: "medal", text: "Did you know? This capstone project is pain. But it's all that remains." }
-],
+        return {
+            facts: [
+                { id: 1, icon: "medal", text: "Did you know? This capstone project is pain. But it's all that remains." }
+            ],
             stats: [
                 { id: 1, headerText: "Current Balance", value: "$" + (Math.random() * 9999 + 1).toFixed(2) },
                 { id: 2, headerText: "Number of Brackets Entered", value: Math.floor(Math.random() * 50) + 1 },

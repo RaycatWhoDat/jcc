@@ -1,6 +1,6 @@
 <template>
 <section id="application">
-    <aside id="sidebar">
+    <aside id="sidebar" v-if="$route.name !== 'Attract'">
         <div id="logo">
             <span class="large-letter serif">R</span>
         </div>
@@ -13,7 +13,14 @@
             <router-link class="link bold serif" active-class="active" to="/analysis">ANALYSIS</router-link>
         </nav>
         <nav id="avatar-menu">
-            <div id="avatar-button">
+            <div id="avatar-popout" class="serif" v-if="popoutMenuActive">
+                <span class="popout-item">Settings</span>
+                <span class="popout-item">FAQ</span>
+                <span class="popout-item">Help</span>
+                <hr />
+                <span class="popout-item">Sign Out</span>
+            </div>
+            <div id="avatar-button" @click="togglePopoutMenu()">
                 <img class="avatar" alt="User avatar" src="https://placekitten.com/g/200/200" />
             </div>
         </nav>
@@ -24,6 +31,22 @@
     </main>
 </section>
 </template>
+
+<script>
+export default {
+    name: 'App',
+    data() {
+        return {
+            popoutMenuActive: false
+        }
+    },
+    methods: {
+        togglePopoutMenu: function () {
+            this.popoutMenuActive = !this.popoutMenuActive;
+        }
+    }
+}
+</script>
 
 <style lang="scss">
 #application {
@@ -85,6 +108,36 @@
         justify-content: center;
         text-align: center;
         padding-bottom: 25px;
+        position: relative;
+        
+        #avatar-popout {
+            display: flex;
+            flex-direction: column;
+            justify-content: stretch;
+            color: $rps-white;
+            background-color: $rps-black;
+            border-radius: 10px;
+            width: 100px;
+            position: absolute;
+            left: 80%;
+            top: -100%;
+            padding: 10px;
+            text-align: left;
+
+            .popout-item {
+                padding: 5px 0;
+                transition: color 0.5s;
+                cursor: pointer;
+                
+                &:hover {
+                    color: rgba($rps-white, 0.5);
+                }
+            }
+            
+            hr {
+                width: 100%;
+            }
+        }
         
         #avatar-button {
             border-radius: 100px;

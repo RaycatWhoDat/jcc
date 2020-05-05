@@ -13,13 +13,15 @@ const chainWebpack = config => {
 };
 
 const addStyleResource = rule => {
-  rule.use('style-resource')
-    .loader('style-resources-loader')
-    .options({
-      patterns: [
-        path.resolve(__dirname, './src/styles/globals.scss'),
-      ],
-    });
+    rule.use('style-resource')
+        .loader('style-resources-loader')
+        .options({
+            patterns: [
+                path.resolve(__dirname, './src/styles/globals.scss'),
+            ],
+        });
 };
 
-module.exports = { chainWebpack };
+module.exports = {
+    chainWebpack
+};

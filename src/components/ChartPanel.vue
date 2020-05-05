@@ -1,27 +1,35 @@
 <template>
-    <section class="large-panel">
+    <section class="chart-panel">
         <span class="header bold serif" v-once>{{ headerText }}</span>
-        <section class="entries">
-            <div class="entry" v-for="entry in entries" :key="entry.id">
-                <ion-icon :name="entry.icon"></ion-icon>
-                <span class="entry-text serif">{{ entry.text }}</span>
-            </div>
+        <section class="chart-content">
+            <BarChart :chartdata="chartData" :chartOptions="chartOptions" />
         </section>
     </section>
 </template>
 
 <script>
+ import BarChart from '@/components/BarChart.vue';
+ 
  export default {
-     name: 'LargePanel',
+     name: 'ChartPanel',
+     computed: {
+         colors() {
+             return ['#9f84bd', '#d4c1ec'];
+         }
+     },
      props: {
          headerText: String,
-         entries: Array
+         chartData: Object,
+         chartOptions: Object
+     },
+     components: {
+         BarChart
      }
  }
 </script>
 
 <style scoped lang="scss">
- .large-panel {
+ .chart-panel {
      display: flex;
      border: 2px solid $rps-black;
      flex-direction: column;
@@ -30,6 +38,7 @@
      min-width: 25%;
      flex-grow: 2;
      margin: 5px;
+     height: 100%;
      
      .header {
          background-color: $rps-main-secondary;
@@ -41,24 +50,12 @@
          width: 25%;
      }
      
-     .entries {
+     .chart-content {
          display: flex;
          flex-direction: column;
          justify-content: space-between;
          padding: 10px;
-         width: 100%;
-         
-         .entry {
-             width: 100%;
-             display: flex;
-             align-items: center;
-             margin-bottom: 10px;
-             
-             .entry-text {
-                 width: 90%;
-                 padding-left: 10px;
-             }
-         }
+         flex-grow: 1;
      }
  }
 </style>

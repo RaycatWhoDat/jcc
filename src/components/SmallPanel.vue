@@ -1,19 +1,19 @@
 <template>
 <section class="panel">
     <span class="text serif" v-once>{{headerText}}</span>
-    <span :class="{ 'value bold serif': true, 'green': panelType == 'currency' }">{{ value }}</span>
+    <span :class="{ 'value bold serif': true, 'positive': panelType == 'currency' }">{{ value }}</span>
 </section>
 </template>
 
-<script lang="ts">
-import { Component, Prop, Vue } from 'vue-property-decorator';
-
-@Component
-export default class SmallPanel extends Vue {
-@Prop() private headerText!: string;
-@Prop() private value!: number;
-@Prop() private panelType!: string;
-}
+<script>
+ export default {
+     name: 'SmallPanel',
+     props: {
+         headerText: String,
+         value: String,
+         panelType: String
+     }
+ }
 </script>
 
 <style scoped lang="scss">
@@ -21,7 +21,7 @@ export default class SmallPanel extends Vue {
     display: flex;
     border: 2px solid $rps-black;
     flex-direction: column;
-    background-color: $rps-white;
+    background-color: $rps-sheer-white;
     box-shadow: 5px 3px 5px rgba($rps-black, 0.3);
     text-align: center;
     flex-grow: 2;
@@ -38,8 +38,13 @@ export default class SmallPanel extends Vue {
         padding: 0 10px 10px 10px;
     }
 
-    .green {
+    .positive {
         color: $rps-accent-primary;
     }
+
+    .negative {
+        color: $rps-red;
+    }
+    
 }
 </style>

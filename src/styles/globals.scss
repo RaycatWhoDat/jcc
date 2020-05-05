@@ -1,9 +1,13 @@
-$rps-black: #2c2c2c;
 $rps-main-primary: #9f84bd;
 $rps-main-secondary: #d4c1ec;
-$rps-white: #efefef;
 $rps-accent-primary: #a2bd84;
 $rps-accent-secondary: #d9ecc1;
+
+$rps-black: #2c2c2c;
+$rps-gray: #919191;
+$rps-red: #ba486c;
+$rps-white: #efefef;
+$rps-sheer-white: #ffffff;
 
 * {
     user-select: none;
@@ -41,4 +45,12 @@ body {
 
 .italic {
     font-style: italic;
+}
+
+.bg-green {
+    background-color: $rps-accent-primary;
+}
+
+.gray {
+    color: $rps-gray;
 }

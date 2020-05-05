@@ -1,5 +1,5 @@
 <template>
-    <section id="dashboard">
+    <section id="home">
         <section id="at-a-glance">
             <SmallPanel
                 v-for="stat in stats"
@@ -9,40 +9,32 @@
                 :panelType="stat.panelType" />
         </section>
         <section id="main-area">
-            <LargePanel headerText="Log" :entries="entries" />
-            <section id="sub-area">
-                <LargePanel headerText="Active Brackets" :entries="brackets" />
-                <LargePanel headerText="Random Fact/Put a Chart Here" :entries="facts" />
-            </section>
+            <router-view />
         </section>
     </section>
 </template>
 
 <script>
- import SmallPanel from '@/components/SmallPanel.vue';
- import LargePanel from '@/components/LargePanel.vue';
  import store from '@/store/index';
+ import SmallPanel from '@/components/SmallPanel.vue';
  import { mapState } from 'vuex';
 
  export default {
-     name: "Home",
+     name: "App",
      store,
      computed: {
          ...mapState({
-             stats: ({ homeStore }) => homeStore.stats,
-             brackets: ({ homeStore }) => homeStore.brackets,
-             facts: ({ homeStore }) => homeStore.facts,
-             entries: ({ homeStore }) => homeStore.entries,
-     })},
+             stats: ({ appStore }) => appStore.stats
+         })
+     },
      components: {
-         SmallPanel,
-         LargePanel
+         SmallPanel
      }
  };
 </script>
 
 <style lang="scss">
- #dashboard {
+ #home {
      display: flex;
      flex-direction: column;
      width: 100%;
@@ -59,17 +51,10 @@
 
      #main-area {
          display: flex;
+         width: 100%;
          flex-direction: row;
          justify-content: space-around;
-         padding: 10px;
          flex-grow: 1;
-
-         #sub-area {
-             display: flex;
-             flex-direction: column;
-             justify-content: space-between;
-             flex-grow: 2;
-         }
      }
  }
 </style>

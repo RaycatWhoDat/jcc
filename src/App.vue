@@ -5,12 +5,12 @@
                 <span class="large-letter serif">R</span>
             </div>
             <nav id="side-menu" class="sans-serif">
-                <router-link class="link bold" active-class="active" to="/home">
+                <router-link class="link bold" active-class="active" to="/app/home">
                     <ion-icon name="home"></ion-icon>
                 </router-link>
-                <router-link class="link bold serif" active-class="active" to="/brackets">BRACKETS</router-link>
-                <router-link class="link bold serif" active-class="active" to="/matches">MATCHES</router-link>
-                <router-link class="link bold serif" active-class="active" to="/analysis">ANALYSIS</router-link>
+                <router-link class="link bold serif" active-class="active" to="/app/brackets">BRACKETS</router-link>
+                <router-link class="link bold serif" active-class="active" to="/app/matches">MATCHES</router-link>
+                <router-link class="link bold serif" active-class="active" to="/app/analysis">ANALYSIS</router-link>
             </nav>
             <nav id="avatar-menu">
                 <div id="avatar-popout" class="serif" v-if="popoutMenuActive">
@@ -38,6 +38,9 @@
 
  export default {
      name: 'App',
+     created() {
+         this.$store.dispatch(types.SET_CURRENT_USER);
+     },
      data() {
          return {
              hideSidebar: ['Attract', 'Missing'].includes(this.$route.name),
@@ -49,7 +52,6 @@
              togglePopoutMenu: types.TOGGLE_POPOUT_MENU
          })
      }
-     
  }
 </script>
 
@@ -77,7 +79,7 @@
      z-index: 2;
      
      #logo {
-         color: $rps-white;
+         color: $rps-sheer-white;
          padding-top: 10px;
      }
      
@@ -87,7 +89,7 @@
          width: 100%;
          
          .link {
-             color: $rps-white;
+             color: $rps-sheer-white;
              text-decoration: none;
              padding: 8px 0;
              
@@ -102,7 +104,7 @@
              }
              
              &:visited {
-                 color: $rps-white;
+                 color: $rps-sheer-white;
              }
          }
      }
@@ -122,20 +124,20 @@
              color: $rps-white;
              background-color: $rps-black;
              border-radius: 10px;
-             width: 100px;
              position: absolute;
              left: 80%;
              top: -100%;
              padding: 10px;
              text-align: left;
              box-shadow: 5px 5px 10px $rps-black;
+             z-index: 4;
              
              .popout-item {
                  padding: 5px 0;
                  transition: color 0.5s;
                  cursor: pointer;
                  
-                 &:hover {
+                 &:hover:not(:first-child) {
                      color: rgba($rps-white, 0.5);
                  }
              }
@@ -173,7 +175,7 @@
  #main-view {
      display: flex;
      flex-direction: column;
-     width: 100%;
+     width: 85%;
      height: 100%;
      padding: 10px;
      justify-content: space-between;
@@ -183,7 +185,7 @@
      #accent-text {
          position: absolute;
          bottom: 32px;
-         left: 10%;
+         left: 14%;
          font-size: 192px;
          color: $rps-main-secondary;
          opacity: 0.2;

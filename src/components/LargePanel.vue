@@ -6,7 +6,7 @@
                 <ion-icon :name="entry.icon"></ion-icon>
                 <span class="entry-text serif">{{ entry.text }}</span>
             </div>
-            <span class="serif bold italic" v-if="entries && !entries.length">
+            <span class="serif italic" v-if="entries && !entries.length">
                 None for the moment.
             </span>
         </section>

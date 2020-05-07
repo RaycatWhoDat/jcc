@@ -1,7 +1,6 @@
 <template>
     <section id="dashboard">
         <LargePanel headerText="Active Matches" :entries="matchSummaries" />
-        <LargePanel headerText="Log" :entries="logs" />
     </section>
 </template>
 
@@ -40,8 +39,7 @@
                          icon: "trophy-outline"
                      };
                  });
-             },
-             logs: ({ homeStore }) => homeStore.logs
+             }
          })
      },
      components: {

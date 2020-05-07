@@ -14,9 +14,7 @@ module.exports = {
     },
     rules: {
         "no-console": process.env.NODE_ENV === "production" ? "warn" : "off",
-        "no-debugger": process.env.NODE_ENV === "production" ? "warn" : "off",
-        "vue/html-indent": "off",
-        "vue/script-indent": "off"
+        "no-debugger": process.env.NODE_ENV === "production" ? "warn" : "off"
     },
     overrides: [
         {
@@ -24,6 +22,13 @@ module.exports = {
             "rules": {
                 "vue/html-indent": "off",
                 "vue/script-indent": "off"
+            }
+        },
+        {
+            "files": ["*.ts"],
+            "rules": {
+                "@typescript-eslint/no-unused-vars": "off",
+                "@typescript-eslint/no-explicit-any": "off"
             }
         }
     ]

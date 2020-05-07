@@ -2,7 +2,7 @@
     <section class="chart-panel">
         <span class="header bold serif" v-once>{{ headerText }}</span>
         <section class="chart-content">
-            <BarChart :chartdata="chartData" :chartOptions="chartOptions" />
+            <BarChart :chart-data="chartData" :options="chartOptions" />
         </section>
     </section>
 </template>
@@ -36,7 +36,7 @@
      background-color: $rps-sheer-white;
      box-shadow: 5px 3px 5px rgba($rps-black, 0.3);
      min-width: 25%;
-     flex-grow: 2;
+     flex-grow: 1;
      margin: 5px;
      height: 100%;
      
@@ -51,11 +51,12 @@
      }
      
      .chart-content {
+         position: relative;
          display: flex;
          flex-direction: column;
          justify-content: space-between;
          padding: 10px;
-         flex-grow: 1;
+         height: 100%;
      }
  }
 </style>

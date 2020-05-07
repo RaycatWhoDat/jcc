@@ -54,3 +54,11 @@ body {
 .gray {
     color: $rps-gray;
 }
+
+.positive {
+    color: $rps-accent-primary !important;
+}
+
+.negative {
+    color: $rps-red !important;
+}

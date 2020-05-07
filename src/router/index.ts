@@ -5,9 +5,10 @@ import Home from "@/views/Home.vue";
 import Attract from "@/views/Attract.vue";
 import NotFound from "@/views/NotFound.vue";
 import Dashboard from "@/views/Dashboard.vue";
-import Brackets from "@/views/Brackets.vue";
-import Matches from "@/views/Matches.vue";
-import Analysis from "@/views/Analysis.vue";
+import Watch from "@/views/Watch.vue";
+import Analyze from "@/views/Analyze.vue";
+import Bet from "@/views/Bet.vue";
+import Play from "@/views/Play.vue";
 
 Vue.use(VueRouter);
 
@@ -20,27 +21,32 @@ const routes: Array<RouteConfig> = [
     {
         path: "/app",
         name: "Dashboard",
-        component: Home,
+        component: Dashboard,
         children: [
             {
                 path: "home",
                 name: "Home",
-                component: Dashboard
+                component: Home
             },
             {
-                path: "brackets",
-                name: "Brackets",
-                component: Brackets
+                path: "play",
+                name: "Play",
+                component: Play
             },
             {
-                path: "matches",
-                name: "Matches",
-                component: Matches
+                path: "watch",
+                name: "Watch",
+                component: Watch
             },
             {
-                path: "analysis",
-                name: "Analysis",
-                component: Analysis
+                path: "analyze",
+                name: "Analyze",
+                component: Analyze
+            },
+            {
+                path: "bet",
+                name: "Bet",
+                component: Bet
             }
         ],
     },

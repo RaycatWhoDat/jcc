@@ -25,7 +25,11 @@ export default new Vuex.Store({
         [types.SET_CURRENT_USER]({ state }) {
             axios.get(`${SERVER_URL}/db/users/1`)
                 .then(({ data }) => {
-                    state.currentUser = data;
+                    const { currentBalance, matchesEntered, matchesWon, ...currentUser } = data;
+                    state.currentUser = { ...currentUser, currentBalance };
+                    this.commit(types.SET_CURRENT_BALANCE, { currentBalance });
+                    this.commit(types.SET_MATCHES_ENTERED, { matchesEntered });
+                    this.commit(types.SET_MATCHES_WON, { matchesWon });
                 }, () => {
                     console.error('Something went wrong when assigning the current user.');
                 });

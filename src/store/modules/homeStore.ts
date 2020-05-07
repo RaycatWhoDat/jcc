@@ -4,9 +4,9 @@ const homeStore = {
             { id: 1, icon: "medal", text: "Did you know? This capstone project is pain. But it's all that remains." }
         ],
         logs: [
-            { id: 1, icon: "thumbs-up-outline", text: "Item 1" },
-            { id: 2, icon: "thumbs-up-outline", text: "Item 2" },
-            { id: 3, icon: "thumbs-down-outline", text: "Item 3" }
+            { id: 1, icon: "thumbs-up-outline", text: "Nam a sapien." },
+            { id: 2, icon: "thumbs-up-outline", text: "Phasellus neque orci, porta a, aliquet quis, semper a, massa." },
+            { id: 3, icon: "thumbs-down-outline", text: "Sed bibendum." }
         ],
         brackets: [
             { id: 1, icon: "trophy-outline", text: "The match between User 1 and User 7 is in progress." },

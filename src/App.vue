@@ -8,9 +8,10 @@
                 <router-link class="link bold" active-class="active" to="/app/home">
                     <ion-icon name="home"></ion-icon>
                 </router-link>
-                <router-link class="link bold serif" active-class="active" to="/app/brackets">BRACKETS</router-link>
-                <router-link class="link bold serif" active-class="active" to="/app/matches">MATCHES</router-link>
-                <router-link class="link bold serif" active-class="active" to="/app/analysis">ANALYSIS</router-link>
+                <router-link class="link bold serif" active-class="active" to="/app/play">PLAY</router-link>
+                <router-link class="link bold serif" active-class="active" to="/app/watch">WATCH</router-link>
+                <router-link class="link bold serif" active-class="active" to="/app/bet">BET</router-link>
+                <router-link class="link bold serif" active-class="active" to="/app/analyze">ANALYZE</router-link>
             </nav>
             <nav id="avatar-menu">
                 <div id="avatar-popout" class="serif" v-if="popoutMenuActive">

@@ -28,7 +28,7 @@
      background-color: $rps-sheer-white;
      box-shadow: 5px 3px 5px rgba($rps-black, 0.3);
      min-width: 25%;
-     flex-grow: 2;
+     flex-grow: 1;
      margin: 5px;
      
      .header {
@@ -44,9 +44,9 @@
      .entries {
          display: flex;
          flex-direction: column;
-         justify-content: space-between;
          padding: 10px;
          width: 100%;
+         height: 100%;
          
          .entry {
              width: 100%;

@@ -1,76 +1,60 @@
-
 <template>
-    <section id="dashboard">
-        <LargePanel headerText="Log" :entries="logs" />
-        <section id="sub-area">
-            <LargePanel headerText="Active Brackets" :entries="brackets" />
-            <ChartPanel
-                headerText="Match History"
-                :chartData="matchHistories"
-                :chartOptions="chartOptions" />
+    <section id="home">
+        <section id="at-a-glance">
+            <SmallPanel headerText="Current Balance" :panelType="currentBalance.panelType" :value="currentBalance.value" />
+            <SmallPanel headerText="Number Of Matches Entered" :panelType="matchesEntered.panelType" :value="matchesEntered.value" />
+            <SmallPanel headerText="Number Of Matches Won" :panelType="matchesWon.panelType" :value="matchesWon.value" />
+        </section>
+        <section id="main-area">
+            <router-view />
         </section>
     </section>
 </template>
 
-<style lang="scss">
- #dashboard {
-     display: flex;
-     flex-direction: row;
-     justify-content: space-around;
-     padding: 10px;
-     flex-grow: 1;
-     
-     #sub-area {
-         display: flex;
-         flex-direction: column;
-         justify-content: space-between;
-         flex-grow: 2;
-     }
- }
-</style>
-
 <script>
- import ChartPanel from '@/components/ChartPanel.vue';
- import LargePanel from '@/components/LargePanel.vue';
  import store from '@/store/index';
+ import SmallPanel from '@/components/SmallPanel.vue';
  import { mapState } from 'vuex';
 
  export default {
-     name: "Dashboard",
+     name: "App",
      store,
      computed: {
-         chartOptions() {
-             return {
-                 responsive: true,
-                 maintainAspectRatio: false,
-                 scales: {
-                     xAxes: [
-                         {
-                             ticks: {
-                                 beginAtZero: true
-                             },
-                         }
-                     ],
-                     yAxes: [
-                         {
-                             ticks: {
-                                 beginAtZero: true
-                             },
-                         }
-                     ]
-                 }
-             };
-         },
          ...mapState({
-             brackets: ({ homeStore }) => homeStore.brackets,
-             facts: ({ homeStore }) => homeStore.facts,
-             matchHistories: ({ bracketStore }) => bracketStore.matchHistories,
-             logs: ({ homeStore }) => homeStore.logs
+             currentBalance: ({ appStore }) => appStore.currentBalance,
+             matchesEntered: ({ appStore }) => appStore.matchesEntered,
+             matchesWon: ({ appStore }) => appStore.matchesWon
          })
      },
      components: {
-         LargePanel,
-         ChartPanel
+         SmallPanel
      }
  };
 </script>
+
+<style lang="scss">
+ #home {
+     display: flex;
+     flex-direction: column;
+     width: 100%;
+     height: calc(100% - 25px);
+     z-index: 3;
+     
+     #at-a-glance {
+         display: flex;
+         flex-direction: row;
+         justify-content: space-around;
+         margin-bottom: 10px;
+         padding: 10px;
+     }
+
+     #main-area {
+         display: flex;
+         width: 100%;
+         flex-direction: row;
+         justify-content: space-around;
+         flex-grow: 1;
+     }
+ }
+</style>
+       

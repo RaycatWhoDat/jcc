@@ -1,19 +1,11 @@
 <template>
     <section id="bracket">
-        <button id="create-match" @click="createMatch()">CREATE MATCH</button>
-        <section id="round">
-            <Pod id="0" />
-            <Pod id="1" />
-            <Pod id="2" />
-            <Pod id="3" />
+        <section class="seed-round" v-if="activeMatches && activeMatches.length">
+            <Pod v-for="(match, index) in activeMatches" :id="index" :key="match.matchId" />
         </section>
-        <section id="round">
-            <Pod id="4" />
-            <Pod id="5" />
-        </section>
-        <section id="round">
-            <Pod id="6" />
-        </section>
+        <span class="seed-round serif bold italic" v-else>
+            No active matches.
+        </span>
     </section>
 </template>
 
@@ -23,12 +15,14 @@
      height: 100%;
      display: flex;
      flex-direction: row;
+     justify-content: center;
      overflow: hidden;
 
-     #round {
+     .seed-round {
          display: flex;
          flex-direction: column;
          justify-content: space-around;
+         align-items: center;
          padding: 0 20px;
          min-width: 10%;
          flex-grow: 1;
@@ -50,15 +44,6 @@
      },
      components: {
          Pod
-     },
-     methods: {
-         createMatch() {
-             const player1Id = Math.floor(Math.random() * 8) + 1
-             let player2Id = player1Id;
-             while (player1Id === player2Id) player2Id = Math.floor(Math.random() * 8) + 1;
-             
-             this.$store.dispatch(types.CREATE_MATCH, { player1Id, player2Id });
-         }
      },
      mounted() {
          this.$store.dispatch(types.GET_ACTIVE_MATCHES);

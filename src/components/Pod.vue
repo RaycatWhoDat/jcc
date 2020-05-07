@@ -1,6 +1,5 @@
 <template>
     <div class="players serif">
-        <span class="designation">1</span>
         <div :class="{ 'player': true, 'gray': player2Victories > 2 }">
             <span
                 @click="addVictoryToPlayer(1)"
@@ -29,7 +28,7 @@
      props: ['id'],
      methods: {
          addVictoryToPlayer(playerId) {
-             if (this.player1Victories >= 3 || this.player2Victories >= 3) return;
+             if (this.matchFinished) return;
 
              this.$store.dispatch(types.ADD_VICTORY_TO_PLAYER, {
                  gameId: this.id,
@@ -44,6 +43,9 @@
          ...mapState({
              matchId: function ({ bracketStore }) {
                  return (bracketStore.activeMatches[this.id] || {}).matchId;
+             },
+             matchFinished: function ({ bracketStore }) {
+                 return (bracketStore.activeMatches[this.id] || {}).matchFinished;
              },
              player1Victories: function ({ bracketStore }) {
                  return (bracketStore.activeMatches[this.id] || {}).player1Victories;
@@ -75,14 +77,9 @@
      margin-right: 5px;
      position: relative;
      overflow: hidden;
+     width: 100%;
      box-shadow: 5px 5px 5px rgba($rps-black, 0.3);
 
-     .designation {
-         position: absolute;
-         left: calc(-5% - 5px);
-         top: calc(50% - 12px);
-     }
-     
      .player {
          background-color: $rps-sheer-white;
          overflow: hidden;

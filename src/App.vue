@@ -16,8 +16,7 @@
             <nav id="avatar-menu">
                 <div id="avatar-popout" class="serif" v-if="popoutMenuActive">
                     <span class="popout-item bold" v-once>{{currentUser.username}}</span>
-                    <span class="popout-item">Settings</span>
-                    <span class="popout-item">Help</span>
+                    <span class="popout-item" @click="createMatch()">Create Match</span>
                     <hr />
                     <span class="popout-item">Sign Out</span>
                 </div>
@@ -49,6 +48,13 @@
      },
      computed: mapState(['currentUser', 'popoutMenuActive']),
      methods: {
+         createMatch() {
+             const player1Id = Math.floor(Math.random() * 8) + 1
+             let player2Id = player1Id;
+             while (player1Id === player2Id) player2Id = Math.floor(Math.random() * 8) + 1;
+             
+             this.$store.dispatch(types.CREATE_MATCH, { player1Id, player2Id });
+         },
          ...mapMutations({
              togglePopoutMenu: types.TOGGLE_POPOUT_MENU
          })

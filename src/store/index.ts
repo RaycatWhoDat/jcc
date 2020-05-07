@@ -22,17 +22,22 @@ export default new Vuex.Store({
         }
     },
     actions: {
-        [types.SET_CURRENT_USER]({ state }) {
+        [types.SET_CURRENT_USER]({ state, commit, dispatch }) {
             axios.get(`${SERVER_URL}/db/users/1`)
                 .then(({ data }) => {
                     const { currentBalance, matchesEntered, matchesWon, ...currentUser } = data;
-                    state.currentUser = { ...currentUser, currentBalance };
-                    this.commit(types.SET_CURRENT_BALANCE, { currentBalance });
-                    this.commit(types.SET_MATCHES_ENTERED, { matchesEntered });
-                    this.commit(types.SET_MATCHES_WON, { matchesWon });
+                    state.currentUser = { ...currentUser };
+                    dispatch(types.SET_CURRENT_BALANCE, { currentBalance });
+                    commit(types.SET_MATCHES_ENTERED, { matchesEntered });
+                    commit(types.SET_MATCHES_WON, { matchesWon });
                 }, () => {
                     console.error('Something went wrong when assigning the current user.');
                 });
+        },
+        [types.SET_CURRENT_BALANCE]: async ({ state, commit }, { currentBalance }) => {
+            await axios.put(`${SERVER_URL}/db/balances/1`, { currentBalance });
+            Vue.set(state.currentUser, 'currentBalance', currentBalance);
+            commit(types.SET_CURRENT_BALANCE, { currentBalance });
         }
     },
     modules: {

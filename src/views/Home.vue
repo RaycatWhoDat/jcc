@@ -1,14 +1,14 @@
 <template>
     <section id="dashboard">
+        <LargePanel headerText="Active Matches" :entries="matchSummaries" />
         <LargePanel headerText="Log" :entries="logs" />
-        <LargePanel headerText="Active Brackets" :entries="brackets" />
     </section>
 </template>
 
 <style lang="scss">
  #dashboard {
      display: flex;
-     flex-direction: row;
+     flex-direction: column;
      justify-content: space-around;
      padding: 10px;
      flex-grow: 1;
@@ -32,7 +32,15 @@
      store,
      computed: {
          ...mapState({
-             brackets: ({ homeStore }) => homeStore.brackets,
+             matchSummaries: ({ bracketStore }) => {
+                 return bracketStore.matchSummaries.map(([id, player1, player2]) => {
+                     return {
+                         id,
+                         text: `${player1} vs. ${player2}`,
+                         icon: "trophy-outline"
+                     };
+                 });
+             },
              logs: ({ homeStore }) => homeStore.logs
          })
      },

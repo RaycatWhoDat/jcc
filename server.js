@@ -15,7 +15,9 @@ const {
     placeBet,
     getActiveMatches,
     createMatch,
-    updateMatch
+    updateMatch,
+    getAllBetsByMatchId,
+    updateCurrentBalance
 } = require('./sqlite-utils');
 
 const app = express();
@@ -33,6 +35,15 @@ app.get('/db/seed', async (req, res) => {
     return res.status(200).json({ results: 'Done.' });
 });
 
+app.put(`/db/balances/:userId`, (req, res) => {
+    const db = acquireDb();
+    const { currentBalance } = req.body || {};
+    updateCurrentBalance(db, req.params.userId, currentBalance).then(() => {
+        releaseDb(db);
+        res.status(200).json({ results: 'Done.' });
+    }, () => res.status(500).send(null));
+});
+
 app.get(`/db/records`, (req, res) => {
     const db = acquireDb();
     retrieveMatchHistories(db).then(results => {
@@ -47,6 +58,14 @@ app.put(`/db/records/:userId`, (req, res) => {
     updateMatchHistory(db, req.params.userId, playerId, playerWon).then(() => {
         releaseDb(db);
         res.status(200).json({ results: 'Done.' });
+    }, () => res.status(500).send(null));
+});
+
+app.get(`/db/bets/:matchId`, (req, res) => {
+    const db = acquireDb();
+    getAllBetsByMatchId(db, req.params.matchId).then(allBets => {
+        releaseDb(db);
+        res.status(200).json({ results: allBets });
     }, () => res.status(500).send(null));
 });
 

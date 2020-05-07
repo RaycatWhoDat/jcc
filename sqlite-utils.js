@@ -162,7 +162,7 @@ const retrieveMatchHistories = db => new Promise((resolve, reject) => {
     db.each(sqlQuery, (error, row) => {
         matchHistories.push(row);
     }, (error, numberOfRows) => {
-        matchHistories.sort((history1, history2) => history1.matchesEntered - history2.matchesEntered);
+        matchHistories.sort((history1, history2) => history2.matchesEntered - history1.matchesEntered);
         resolve(matchHistories);
     });
 });
@@ -170,7 +170,10 @@ const retrieveMatchHistories = db => new Promise((resolve, reject) => {
 const placeBet = (db, matchId, userInfo, betAmount) => new Promise((resolve, reject) => {
     console.log(`Placing a bet for ${betAmount} on ${userInfo.winningUsername} to win.`);
     const sqlQuery = `INSERT INTO ${BETS_TABLE} VALUES (?, ?, ?, ?, ?)`;
-    db.run(sqlQuery, [matchId, userInfo.winningUserId, userInfo.bettingUserId, betAmount, 0], error => resolve(null));
+    db.serialize(() => {
+        db.run(`UPDATE balances SET balance = balance - ${betAmount} WHERE userId = ${userInfo.bettingUserId}`);
+        db.run(sqlQuery, [matchId, userInfo.winningUserId, userInfo.bettingUserId, betAmount, 0], error => resolve(null));
+    });
 });
 
 const createMatch = (db, player1Id, player2Id) => new Promise((resolve, reject) => {
@@ -228,6 +231,30 @@ const getActiveMatches = db => new Promise((resolve, reject) => {
     });
 });
 
+const getAllBetsByMatchId = (db, matchId) => new Promise((resolve, reject) => {
+    console.log(`Retrieving all bets for match ID: ${matchId}.`);
+    const sqlQuery = `SELECT * FROM ${BETS_TABLE} WHERE matchId = ${matchId} AND paidOut = 0`;
+
+    // const statement = db.prepare(`UPDATE ${BALANCES_TABLE} SET balance = balance + (? * 2) WHERE userId = ?`);
+    
+    const bets = [];
+    db.serialize(() => {
+        db.each(sqlQuery, (error, row) => {
+            bets.push(row);
+        }, (error, numberOfRows) => {
+            bets.sort((bet1, bet2) => bet2.betAmount - bet1.betAmount);
+        });
+
+        db.run(`UPDATE bets SET paidOut = 1 WHERE matchId = ${matchId}`, error => resolve(bets));
+    });
+});
+
+const updateCurrentBalance = (db, userId, currentBalance) => new Promise((resolve, reject) => {
+    console.log(`Updating current balance for user ID: ${userId}.`);
+    const sqlQuery = `UPDATE ${BALANCES_TABLE} SET balance = ? WHERE userId = ?`;
+    db.run(sqlQuery, [currentBalance, userId], error => resolve(null));
+});
+
 module.exports = {
     usingDb,
     acquireDb,
@@ -239,5 +266,7 @@ module.exports = {
     placeBet,
     getActiveMatches,
     createMatch,
-    updateMatch
+    updateMatch,
+    getAllBetsByMatchId,
+    updateCurrentBalance
 };

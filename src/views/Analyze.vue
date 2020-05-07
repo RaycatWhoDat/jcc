@@ -1,6 +1,10 @@
 
 <template>
     <section id="matches">
+        <LargePanel
+            headerText="Top Win Percentages"
+            listType="horizontal"
+            :entries="winPercentages" />
         <ChartPanel
             headerText="Match History"
             :chartData="matchHistories"
@@ -14,18 +18,18 @@
      flex-direction: column;
      padding: 10px;
      flex-grow: 1;
+     width: 100%;
  }
 </style>
 
 <script>
+ import LargePanel from '@/components/LargePanel.vue';
  import ChartPanel from '@/components/ChartPanel.vue';
- import store from '@/store/index';
  import * as types from '@/store/mutation-types';
  import { mapState } from 'vuex';
 
  export default {
      name: "Matches",
-     store,
      computed: {
          chartOptions() {
              return {
@@ -49,12 +53,25 @@
          },
          ...mapState({
              matchHistories: ({ bracketStore }) => bracketStore.matchHistories,
+             winPercentages: ({ bracketStore }) => {
+                 const _winPercentages = bracketStore.winPercentages.map(({ username, winPercentage }, id) => {
+                     return {
+                         id,
+                         icon: 'pie-chart-outline',
+                         text: `${username}: ${winPercentage.toFixed(2)}%`
+                     };
+                 });
+
+                 console.log(_winPercentages);
+                 return _winPercentages;
+             }
          })
      },
      mounted() {
-        this.$store.dispatch(types.GET_MATCH_HISTORIES);
+         this.$store.dispatch(types.GET_MATCH_HISTORIES);
      },
      components: {
+         LargePanel,
          ChartPanel
      }
  };

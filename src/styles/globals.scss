@@ -44,15 +44,20 @@ body {
 }
 
 .italic {
-    font-style: italic;
+    font-style: italic !important;
 }
 
 .bg-green {
-    background-color: $rps-accent-primary;
+    background-color: $rps-accent-primary !important;
+}
+
+.disabled {
+    background-color: rgba($rps-gray, 0.2) !important;
+    box-shadow: none !important;
 }
 
 .gray {
-    color: $rps-gray;
+    color: $rps-gray !important;
 }
 
 .positive {

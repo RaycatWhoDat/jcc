@@ -1,11 +1,14 @@
 <template>
     <section class="large-panel">
         <span class="header bold serif" v-once>{{ headerText }}</span>
-        <section class="entries">
+        <section :class="{ 'entries': true, 'horizontal': listType === 'horizontal' }">
             <div class="entry" v-for="entry in entries" :key="entry.id">
                 <ion-icon :name="entry.icon"></ion-icon>
                 <span class="entry-text serif">{{ entry.text }}</span>
             </div>
+            <span class="serif bold italic" v-if="entries && !entries.length">
+                None for the moment.
+            </span>
         </section>
     </section>
 </template>
@@ -15,7 +18,8 @@
      name: 'LargePanel',
      props: {
          headerText: String,
-         entries: Array
+         entries: Array,
+         listType: String
      }
  }
 </script>
@@ -47,6 +51,10 @@
          padding: 10px;
          width: 100%;
          height: 100%;
+
+         &.horizontal {
+             flex-direction: row;
+         }
          
          .entry {
              width: 100%;

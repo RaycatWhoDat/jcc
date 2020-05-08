@@ -36,7 +36,7 @@
                  userId: this[`player${playerId}UserId`],
                  otherUserId: this[`player${ playerId === 1 ? '2' : '1' }UserId`],
                  playerId
-             })
+             });
          }
      },
      computed: {

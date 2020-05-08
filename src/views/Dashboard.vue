@@ -15,6 +15,7 @@
  import store from '@/store/index';
  import SmallPanel from '@/components/SmallPanel.vue';
  import { mapState } from 'vuex';
+ import * as types from '@/store/mutation-types';
 
  export default {
      name: "App",
@@ -25,6 +26,9 @@
              matchesEntered: ({ appStore }) => appStore.matchesEntered,
              matchesWon: ({ appStore }) => appStore.matchesWon
          })
+     },
+     mounted() {
+         this.$store.dispatch(types.GET_ACTIVE_MATCHES);
      },
      components: {
          SmallPanel

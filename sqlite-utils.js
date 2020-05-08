@@ -57,9 +57,8 @@ const seedDatabase = db => {
            active NUMERIC DEFAULT 0)`);
     });
 
-    // (create-all-seed-users '("RaycatWhoDat" "Oliver" "Olivia" "Tim" "James" "Jen" "David" "Samantha"))
     const seedUsers = [
-        {"username":"RaycatWhoDat","password":"test1"},
+        {"username":"Ray","password":"test1"},
         {"username":"Oliver","password":"test2"},
         {"username":"Olivia","password":"test3"},
         {"username":"Tim","password":"test4"},

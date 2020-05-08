@@ -25,6 +25,7 @@
  import LargePanel from '@/components/LargePanel.vue';
  import store from '@/store/index';
  import { mapState } from 'vuex';
+ import * as types from '@/store/mutation-types';
 
  export default {
      name: "Dashboard",
@@ -44,6 +45,9 @@
      },
      components: {
          LargePanel
+     },
+     beforeRouteEnter (to, from, next) {
+         next(vm => vm.$store.dispatch(types.GET_ACTIVE_MATCHES));
      }
  };
 </script>

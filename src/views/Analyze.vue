@@ -54,16 +54,13 @@
          ...mapState({
              matchHistories: ({ bracketStore }) => bracketStore.matchHistories,
              winPercentages: ({ bracketStore }) => {
-                 const _winPercentages = bracketStore.winPercentages.map(({ username, winPercentage }, id) => {
+                 return bracketStore.winPercentages.map(({ username, winPercentage }, id) => {
                      return {
                          id,
                          icon: 'pie-chart-outline',
                          text: `${username}: ${winPercentage.toFixed(2)}%`
                      };
                  });
-
-                 console.log(_winPercentages);
-                 return _winPercentages;
              }
          })
      },

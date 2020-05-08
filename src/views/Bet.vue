@@ -117,8 +117,8 @@
              Vue.set(this.bets, index, this.bets[index] !== playerId ? playerId : 0);
          } 
      },
-     mounted() {
-         this.$store.dispatch(types.GET_ACTIVE_MATCHES);
+     beforeRouteEnter (to, from, next) {
+         next(vm => vm.$store.dispatch(types.GET_ACTIVE_MATCHES));
      }
  };
 </script>

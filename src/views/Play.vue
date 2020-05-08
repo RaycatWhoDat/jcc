@@ -3,7 +3,7 @@
         <Match v-if="activeMatches && activeMatches.length" :id="0" />
         <span class="serif italic" v-else>
             <span class="bold">No active matches. </span>
-            <span class="link" @click="createMatch()">Create match?</span>
+            <span class="link" @click="createTournament()">Create eight games?</span>
         </span>
     </article>
 </template>
@@ -24,12 +24,14 @@
          next(vm => vm.$store.dispatch(types.GET_ACTIVE_MATCHES));
      },
      methods: {
-         createMatch() {
-             const player1Id = Math.floor(Math.random() * 8) + 1
-             let player2Id = player1Id;
-             while (player1Id === player2Id) player2Id = Math.floor(Math.random() * 8) + 1;
-             
-             this.$store.dispatch(types.CREATE_MATCH, { player1Id, player2Id });
+         createTournament() {
+             for (let index = 0; index < 8; index++) {
+                 const player1Id = Math.floor(Math.random() * 8) + 1
+                 let player2Id = player1Id;
+                 while (player1Id === player2Id) player2Id = Math.floor(Math.random() * 8) + 1;
+                 
+                 this.$store.dispatch(types.CREATE_MATCH, { player1Id, player2Id });
+             }
          }
      },
      components: {

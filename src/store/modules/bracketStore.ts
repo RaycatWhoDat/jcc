@@ -115,19 +115,12 @@ const bracketStore = {
                     commit(types.GENERATE_WIN_PERCENTAGES, data);
                 });
         },
-        [types.PLACE_BET]({ rootState, dispatch }: any, payload: any) {
-            const { betAmount, ...restOfPayload } = payload || {};
+        [types.PLACE_BET]: async ({ dispatch }: any, payload: any) => {
+            const { betAmount, currentBalance, ...restOfPayload } = payload || {};
 
-            axios
-                .post(`${SERVER_URL}/db/bets`, {
-                    betAmount,
-                    ...restOfPayload
-                })
-                .then(() => {
-                    dispatch(types.SET_CURRENT_BALANCE, {
-                        currentBalance: rootState.currentUser.currentBalance - betAmount
-                    });
-                });
+            return await axios
+                .post(`${SERVER_URL}/db/bets`, { betAmount, ...restOfPayload })
+                .then(() => dispatch(types.SET_CURRENT_BALANCE, { currentBalance }));
         },
         [types.GET_ACTIVE_MATCHES]({ state, commit }: any) {
             axios

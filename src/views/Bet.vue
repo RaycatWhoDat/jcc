@@ -95,7 +95,7 @@
 
              const bettingUserId = this.userId;
              const betAmount = this.betAmount;
-
+             
              this.bets.forEach((playerId, index) => {
                  if (!playerId) return;
                  const matchId = this.matchSummaries[index][0]
@@ -106,7 +106,8 @@
                  this.$store.dispatch(types.PLACE_BET, {
                      matchId,
                      userInfo: { winningUsername, winningUserId, bettingUserId },
-                     betAmount
+                     betAmount,
+                     currentBalance: this.currentBalance - this.totalBetAmount
                  });
              });
 

@@ -135,7 +135,10 @@ const updateMatchHistory = (db, userId, playerId, playerWon) => new Promise((res
         `WHERE ${playerIdColumn} = ${userId};`,
     ].join(' ');
 
-    db.run(sqlQuery, error => resolve(null));
+    db.run(sqlQuery, error => {
+        if (error) console.error(error);
+        resolve(null);
+    });
 });
 
 const retrieveMatchHistories = db => new Promise((resolve, reject) => {
@@ -171,7 +174,10 @@ const placeBet = (db, matchId, userInfo, betAmount) => new Promise((resolve, rej
     const sqlQuery = `INSERT INTO ${BETS_TABLE} VALUES (?, ?, ?, ?, ?)`;
     db.serialize(() => {
         db.run(`UPDATE balances SET balance = balance - ${betAmount} WHERE userId = ${userInfo.bettingUserId}`);
-        db.run(sqlQuery, [matchId, userInfo.winningUserId, userInfo.bettingUserId, betAmount, 0], error => resolve(null));
+        db.run(sqlQuery, [matchId, userInfo.winningUserId, userInfo.bettingUserId, betAmount, 0], error => {
+            if (error) console.error(error);
+            resolve(null);
+        });
     });
 });
 
@@ -195,7 +201,10 @@ const updateMatch = (db, matchId, playerId, matchFinished) => new Promise((resol
         `WHERE matchId = ${matchId}`
     ].join(' ');
 
-    db.run(sqlQuery, error => resolve(null));
+    db.run(sqlQuery, error => {
+        if (error) console.error(error);
+        resolve(null);
+    });
 });
 
 const getActiveMatches = db => new Promise((resolve, reject) => {
@@ -251,7 +260,10 @@ const getAllBetsByMatchId = (db, matchId) => new Promise((resolve, reject) => {
 const updateCurrentBalance = (db, userId, currentBalance) => new Promise((resolve, reject) => {
     console.log(`Updating current balance for user ID: ${userId}.`);
     const sqlQuery = `UPDATE ${BALANCES_TABLE} SET balance = ? WHERE userId = ?`;
-    db.run(sqlQuery, [currentBalance, userId], error => resolve(null));
+    db.run(sqlQuery, [currentBalance, userId], error => {
+        if (error) console.error(error);
+        resolve(null);
+    });
 });
 
 module.exports = {

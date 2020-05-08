@@ -34,10 +34,13 @@ export default new Vuex.Store({
                     console.error('Something went wrong when assigning the current user.');
                 });
         },
-        [types.SET_CURRENT_BALANCE]: async ({ state, commit }, { currentBalance }) => {
-            await axios.put(`${SERVER_URL}/db/balances/1`, { currentBalance });
-            Vue.set(state.currentUser, 'currentBalance', currentBalance);
-            commit(types.SET_CURRENT_BALANCE, { currentBalance });
+        [types.SET_CURRENT_BALANCE]({ state, commit }, { currentBalance }) {
+            axios
+                .put(`${SERVER_URL}/db/balances/1`, { currentBalance })
+                .then(() => {
+                    Vue.set(state.currentUser, 'currentBalance', currentBalance);
+                    commit(types.SET_CURRENT_BALANCE, { currentBalance });
+                });
         }
     },
     modules: {

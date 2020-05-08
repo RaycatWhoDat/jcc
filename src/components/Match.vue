@@ -19,10 +19,14 @@
         </div>
         <div class="match-info serif">
             <span :class="{ 'player-one-score': true, 'negative': player1Victories >= 2 }">{{ player1Victories }}</span>
-            <span :class="{'player-one bold': true, 'gray': player2Victories > 2 }">{{ player1Username ? player1Username.toUpperCase() : '' }}</span>
-            <span class="italic green" v-if="matchFinished">{{ winningUsername }} wins!</span>
-            <span class="versus italic" v-else>vs.</span>
-            <span :class="{'player-two bold': true, 'gray': player1Victories > 2 }">{{ player2Username ? player2Username.toUpperCase() : '' }}</span>
+            <span :class="{'player-one bold': true, 'gray': player2Victories > 2 }">
+                <ion-icon v-if="player1Victories > 2" name="trophy-outline"></ion-icon>
+                {{ player1Username ? player1Username.toUpperCase() : '' }}
+            </span>
+            <span class="versus italic">vs.</span>
+            <span :class="{'player-two bold': true, 'gray': player1Victories > 2 }">
+                <ion-icon v-if="player2Victories > 2" name="trophy-outline"></ion-icon>
+                {{ player2Username ? player2Username.toUpperCase() : '' }}</span>
             <span :class="{ 'player-two-score': true, 'negative': player2Victories >= 2 }">{{ player2Victories }}</span>
         </div>
         <div class="buttons">

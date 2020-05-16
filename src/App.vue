@@ -17,7 +17,7 @@
                 <div id="avatar-popout" class="serif" v-if="popoutMenuActive">
                     <span class="popout-item bold" v-once>{{currentUser.username}}</span>
                     <hr />
-                    <span class="popout-item">Sign Out</span>
+                    <span class="popout-item" @click="signOut()">Sign Out</span>
                 </div>
                 <div id="avatar-button" @click="togglePopoutMenu()">
                     <img class="avatar" alt="User avatar" src="https://placekitten.com/g/200/200" />
@@ -40,13 +40,11 @@
      created() {
          this.$store.dispatch(types.SET_CURRENT_USER);
      },
-     data() {
-         return {
-             hideSidebar: ['Attract', 'Missing'].includes(this.$route.name),
-         }
-     },
-     computed: mapState(['currentUser', 'popoutMenuActive']),
+     computed: mapState(['currentUser', 'popoutMenuActive', 'hideSidebar']),
      methods: {
+         signOut() {
+             this.$store.commit(types.SIGN_OUT);
+         },
          ...mapMutations({
              togglePopoutMenu: types.TOGGLE_POPOUT_MENU
          })
@@ -124,8 +122,9 @@
              background-color: $rps-black;
              border-radius: 10px;
              position: absolute;
-             left: 80%;
-             top: -100%;
+             min-width: 50%;
+             left: 70%;
+             top: -50%;
              padding: 10px;
              text-align: left;
              box-shadow: 5px 5px 10px $rps-black;

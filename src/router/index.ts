@@ -15,7 +15,8 @@ Vue.use(VueRouter);
 const routes: Array<RouteConfig> = [
     {
         path: "/",
-        name: "Attract",
+        name: "Login",
+        // redirect: '/app/home',
         component: Attract
     },
     {
@@ -56,7 +57,6 @@ const routes: Array<RouteConfig> = [
         name: "Missing",
         component: NotFound
     }
-    // component: () => import("../views/About.vue")
 ];
 
 const router = new VueRouter({

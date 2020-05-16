@@ -58,14 +58,14 @@ const seedDatabase = db => {
     });
 
     const seedUsers = [
-        {"username":"Ray","password":"test1"},
-        {"username":"Oliver","password":"test2"},
-        {"username":"Olivia","password":"test3"},
-        {"username":"Tim","password":"test4"},
-        {"username":"James","password":"test5"},
-        {"username":"Jen","password":"test6"},
-        {"username":"David","password":"test7"},
-        {"username":"Samantha","password":"test8"}
+        {"username":"Ray","password":"dGVzdDE="},
+        {"username":"Oliver","password":"dGVzdDI="},
+        {"username":"Sarah","password":"dGVzdDM="},
+        {"username":"Tim","password":"dGVzdDQ="},
+        {"username":"James","password":"dGVzdDU="},
+        {"username":"Jen","password":"dGVzdDY="},
+        {"username":"David","password":"dGVzdDc="},
+        {"username":"Samantha","password":"dGVzdDg="}
     ];
 
     seedUsers.forEach(user => {
@@ -164,7 +164,6 @@ const retrieveMatchHistories = db => new Promise((resolve, reject) => {
     db.each(sqlQuery, (error, row) => {
         matchHistories.push(row);
     }, (error, numberOfRows) => {
-        matchHistories.sort((history1, history2) => history2.matchesEntered - history1.matchesEntered);
         resolve(matchHistories);
     });
 });
@@ -266,6 +265,15 @@ const updateCurrentBalance = (db, userId, currentBalance) => new Promise((resolv
     });
 });
 
+const authenticateUser = (db, username, password) => new Promise((resolve, reject) => {
+    console.log(`Attempting authentication as user: ${username}.`);
+    const sqlQuery = `SELECT userId FROM users WHERE username = '${username}' AND password = '${password}'`;
+    db.get(sqlQuery, (error, row) => {
+        if (error) console.error(error);
+        resolve(row || {});
+    });
+});
+
 module.exports = {
     usingDb,
     acquireDb,
@@ -279,5 +287,6 @@ module.exports = {
     createMatch,
     updateMatch,
     getAllBetsByMatchId,
-    updateCurrentBalance
+    updateCurrentBalance,
+    authenticateUser
 };

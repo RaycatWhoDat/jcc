@@ -130,8 +130,8 @@
      flex-direction: column;
      justify-content: space-between;
      align-items: center;
+     height: 100%;
      width: 100%;
-     flex-grow: 1;
      padding: 10px;
  }
  
@@ -141,7 +141,7 @@
      justify-content: space-around;
      align-items: center;
      flex-grow: 1;
-     padding: 10%;
+     padding: 0 10%;
      font-size: 24px;
      
      .player-one,
@@ -165,7 +165,7 @@
          border: none;
          outline: none;
          background-color: $rps-white;
-         width: 25%;
+         width: 200px;
 
          &:not(.selected) {
              opacity: 0.3;

@@ -17,7 +17,8 @@ const {
     createMatch,
     updateMatch,
     getAllBetsByMatchId,
-    updateCurrentBalance
+    updateCurrentBalance,
+    authenticateUser
 } = require('./sqlite-utils');
 
 const app = express();
@@ -33,6 +34,14 @@ app.get('/db/seed', async (req, res) => {
     await seedDatabase(db);
     releaseDb(db);
     return res.status(200).json({ results: 'Done.' });
+});
+
+app.post('/db/auth', async (req, res) => {
+    const db = acquireDb();
+    const { username, password } = req.body || {};
+    const results = await authenticateUser(db, username, password);
+    releaseDb(db);
+    return res.status(200).json({ results });
 });
 
 app.put(`/db/balances/:userId`, (req, res) => {

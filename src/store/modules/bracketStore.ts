@@ -7,10 +7,12 @@ const WINNING_SCORE = 3;
 
 const bracketStore = {
     state: {
-        matchHistories: {},
+        matchesEnteredData: {},
+        matchesWonData: {},
         matchSummaries: [],
         activeMatches: [],
-        winPercentages: []
+        winPercentages: [],
+        lossPercentages: []
     },
     mutations: {
         [types.UPDATE_SCORE](state: any, payload: any) {
@@ -47,9 +49,14 @@ const bracketStore = {
                 matchesWonDataset.data.push(matchesWon);
             });
 
-            state.matchHistories = {
+            state.matchesWonData = {
                 ...defaultValues,
-                datasets: [matchesWonDataset, matchesEnteredDataset]
+                datasets: [matchesWonDataset]
+            };
+
+            state.matchesEnteredData = {
+                ...defaultValues,
+                datasets: [matchesEnteredDataset]
             };
         },
         [types.GENERATE_MATCH_SUMMARIES](state: any) {
@@ -66,9 +73,17 @@ const bracketStore = {
                 return winPercentage2 - winPercentage1;
             });
 
-            state.winPercentages = results.slice(0, 3).map(({ matchesEntered, matchesWon, username }: any) => {
-                return { username, winPercentage: (matchesWon / matchesEntered) * 100 };
+            const winPercentages: any[] = [];
+            const lossPercentages: any[] = [];
+            results.forEach(({ matchesEntered, matchesWon, username }: any, index: any) => {
+                if (index > 3 && index < 4) return;
+                const formattedPercentage = { username, percentage: matchesWon / matchesEntered };
+                if (index < 3) winPercentages.push(formattedPercentage);
+                if (index > 4) lossPercentages.push(formattedPercentage);
             });
+
+            state.winPercentages = winPercentages;
+            state.lossPercentages = lossPercentages;
         }
     },
     actions: {

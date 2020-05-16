@@ -1,14 +1,26 @@
 
 <template>
     <section id="matches">
-        <LargePanel
-            headerText="Top Win Percentages"
-            listType="horizontal"
-            :entries="winPercentages" />
-        <ChartPanel
-            headerText="Match History"
-            :chartData="matchHistories"
-            :chartOptions="chartOptions" />
+        <div class="charts">
+            <LargePanel
+                headerText="Top Win Percentages"
+                listType="horizontal"
+                :entries="winPercentages" />
+            <LargePanel
+                headerText="Top Loss Percentages"
+                listType="horizontal"
+                :entries="lossPercentages" />
+        </div>
+        <div class="charts">
+            <ChartPanel
+                headerText="Matches Entered"
+                :chartData="matchesEnteredData"
+                :chartOptions="chartOptions" />
+            <ChartPanel
+                headerText="Matches Won"
+                :chartData="matchesWonData"
+                :chartOptions="chartOptions" />
+        </div>
     </section>
 </template>
 
@@ -19,6 +31,12 @@
      padding: 10px;
      flex-grow: 1;
      width: 100%;
+
+     .charts {
+         display: flex;
+         flex-grow: 1;
+         flex-direction: row;
+     }
  }
 </style>
 
@@ -36,11 +54,6 @@
                  responsive: true,
                  maintainAspectRatio: false,
                  scales: {
-                     xAxes: [
-                         {
-                             stacked: true
-                         }
-                     ],
                      yAxes: [
                          {
                              ticks: {
@@ -52,13 +65,25 @@
              };
          },
          ...mapState({
-             matchHistories: ({ bracketStore }) => bracketStore.matchHistories,
+             matchesEnteredData: ({ bracketStore }) => bracketStore.matchesEnteredData,
+             matchesWonData: ({ bracketStore }) => bracketStore.matchesWonData,
              winPercentages: ({ bracketStore }) => {
-                 return bracketStore.winPercentages.map(({ username, winPercentage }, id) => {
+                 return bracketStore.winPercentages.map(({ username, percentage }, id) => {
+                     const fixedPercentage = (percentage * 100).toFixed(2);
                      return {
                          id,
                          icon: 'pie-chart-outline',
-                         text: `${username}: ${winPercentage.toFixed(2)}%`
+                         text: `${username}: ${fixedPercentage}%`
+                     };
+                 });
+             },
+             lossPercentages: ({ bracketStore }) => {
+                 return bracketStore.lossPercentages.map(({ username, percentage }, id) => {
+                     const fixedPercentage = ((1 - percentage) * 100).toFixed(2);
+                     return {
+                         id,
+                         icon: 'pie-chart-outline',
+                         text: `${username}: ${fixedPercentage}%`
                      };
                  });
              }

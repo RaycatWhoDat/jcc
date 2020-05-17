@@ -21,8 +21,10 @@
             <div class="bet-control serif">
                 <span class="bet-amount italic positive">$ {{ (betAmount / 100).toFixed(2) }}</span>
                 <div class="controls">
+                    <button class="minus-button" @click="decreaseBetAmountWithMultiplier()">--</button>
                     <button class="minus-button" @click="decreaseBetAmount()">-</button>
                     <button class="plus-button" @click="increaseBetAmount()">+</button>
+                    <button class="plus-button" @click="increaseBetAmountWithMultiplier()">++</button>
                 </div>
                 <button :class="{ 'place-bet serif': true, 'disabled': !totalBetAmount || totalBetAmount > currentBalance }" @click="placeBet()">PLACE BET</button>
             </div>
@@ -45,14 +47,14 @@
  import * as types from '@/store/mutation-types';
  import { mapState } from 'vuex';
 
- const INITIAL_INCREMENT = 50;
+ const INITIAL_INCREMENT = 100;
  
  export default {
      name: "Bet",
      data() {
          return {
              bets: [],
-             betAmount: 50,
+             betAmount: INITIAL_INCREMENT,
              increment: INITIAL_INCREMENT
          };
      },
@@ -65,6 +67,7 @@
              return totalBetAmount;
          },
          ...mapState({
+             moneyOptions: ({ moneyOptions }) => moneyOptions,
              activeMatches: ({ bracketStore }) => bracketStore.activeMatches,
              userId: ({ currentUser }) => currentUser.userId,
              currentBalance: ({ currentUser }) => currentUser.currentBalance,
@@ -83,12 +86,19 @@
              if (this.betAmount + increment > currentBalance) return this.betAmount = currentBalance;
              if (this.betAmount + increment < INITIAL_INCREMENT) return this.betAmount = INITIAL_INCREMENT;
              this.betAmount += increment;
+             this.formattedBetAmount = this.betAmount / 100;
          },
          increaseBetAmount() {
              this.updateBetAmount(this.increment);
          },
+         increaseBetAmountWithMultiplier() {
+             this.updateBetAmount(this.increment * 5);
+         },
          decreaseBetAmount() {
              this.updateBetAmount(-this.increment);
+         },
+         decreaseBetAmountWithMultiplier() {
+             this.updateBetAmount(-this.increment * 5);
          },
          placeBet() {
              if (!this.totalBetAmount || this.totalBetAmount > this.currentBalance) return;
@@ -207,7 +217,7 @@
                  font-size: 48px;
                  line-height: 48px;
                  border: 1px solid $rps-black;
-                 width: 40%;
+                 width: 20%;
                  border-radius: 50px;
                  outline: none;
                  box-shadow: 5px 3px 5px rgba($rps-black, 0.3);

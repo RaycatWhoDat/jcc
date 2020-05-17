@@ -58,7 +58,7 @@ const seedDatabase = db => {
     });
 
     const seedUsers = [
-        {"username":"Ray","password":"dGVzdDE="},
+        {"username":"Dealer","password":"dGVzdDE="},
         {"username":"Oliver","password":"dGVzdDI="},
         {"username":"Sarah","password":"dGVzdDM="},
         {"username":"Tim","password":"dGVzdDQ="},

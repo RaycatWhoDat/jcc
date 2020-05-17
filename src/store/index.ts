@@ -16,7 +16,15 @@ export default new Vuex.Store({
     state: {
         currentUser: {},
         popoutMenuActive: false,
-        hideSidebar: true
+        hideSidebar: true,
+        moneyOptions: {
+            decimal: '.',
+            thousands: ',',
+            prefix: '$',
+            suffix: '',
+            precision: 2,
+            masked: false
+        }
     },
     mutations: {
         [types.SIGN_OUT](state) {

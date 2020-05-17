@@ -1,8 +1,8 @@
 import Vue from 'vue';
 import * as types from '@/store/mutation-types';
 import axios from 'axios';
+import { SERVER_URL } from '@/store/index';
 
-const SERVER_URL = 'http://localhost:3000';
 const WINNING_SCORE = 3;
 
 const bracketStore = {

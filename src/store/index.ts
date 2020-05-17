@@ -8,7 +8,7 @@ import appStore from "./modules/appStore";
 import bracketStore from "./modules/bracketStore";
 import axios from 'axios';
 
-const SERVER_URL = 'http://localhost:3000';
+export const SERVER_URL = process.env.NODE_ENV !== 'production' ? 'http://localhost:3000' : '';
 
 Vue.use(Vuex);
 

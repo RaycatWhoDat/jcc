@@ -229,7 +229,7 @@
      .total-amount {
          display: flex;
          justify-content: center;
-         border-top: 3px solid rgba($rps-black, 0.3);
+         border-top: 2px solid rgba($rps-black, 0.3);
          padding: 10px 0;
          width: 100%;
          text-align: right;

@@ -1,5 +1,6 @@
 <template>
     <section id="dashboard">
+        <Cashier />
         <LargePanel headerText="Active Matches" :entries="matchSummaries" />
     </section>
 </template>
@@ -22,6 +23,7 @@
 </style>
 
 <script>
+ import Cashier from '@/components/Cashier.vue';
  import LargePanel from '@/components/LargePanel.vue';
  import store from '@/store/index';
  import { mapState } from 'vuex';
@@ -44,6 +46,7 @@
          })
      },
      components: {
+         Cashier,
          LargePanel
      },
      beforeRouteEnter (to, from, next) {

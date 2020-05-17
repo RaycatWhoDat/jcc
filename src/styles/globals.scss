@@ -64,6 +64,16 @@ body {
     color: $rps-accent-primary !important;
 }
 
+.btn-positive {
+    color: $rps-black !important;
+    background-color: $rps-accent-primary !important;
+}
+
 .negative {
     color: $rps-red !important;
+}
+
+.btn-negative {
+    color: $rps-white !important;
+    background-color: $rps-red !important;
 }

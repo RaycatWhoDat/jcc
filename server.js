@@ -41,6 +41,8 @@ app.post('/db/auth', async (req, res) => {
     const { username, password } = req.body || {};
     const results = await authenticateUser(db, username, password);
     releaseDb(db);
+
+    if (Object.keys(results).length) console.log(`Successfully logged in as: ${username}.`);
     return res.status(200).json({ results });
 });
 

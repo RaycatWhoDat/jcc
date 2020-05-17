@@ -92,7 +92,7 @@
              }
              
              input {
-                 border: 3px solid $rps-main-primary;
+                 border: 2px solid $rps-main-primary;
                  font-size: 24px;
                  padding: 8px;
                  outline: none;
@@ -103,7 +103,7 @@
          }
          
          button {
-             border: 3px solid $rps-main-primary;
+             border: 2px solid $rps-main-primary;
              outline: none;
              background: $rps-main-primary;
              color: $rps-white;

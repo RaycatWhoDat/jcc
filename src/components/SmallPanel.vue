@@ -4,7 +4,7 @@
     <span
         v-if="panelType === 'currency'"
         :class="{ 'value bold serif': true, 'positive': value > 0, 'negative': value < 0 }">
-        $ {{ (value / 100).toFixed(2) }}
+        ${{ (value / 100).toFixed(2) }}
     </span>
     <span v-else class="value serif bold">{{ value }}</span>
 </section>

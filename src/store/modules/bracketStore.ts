@@ -9,6 +9,7 @@ const bracketStore = {
     state: {
         matchesEnteredData: {},
         matchesWonData: {},
+        matchesLostData: {},
         matchSummaries: [],
         activeMatches: [],
         winPercentages: [],
@@ -42,11 +43,18 @@ const bracketStore = {
                 data: [] as any
             };
 
+            const matchesLostDataset = {
+                label: 'Matches Lost',
+                backgroundColor: '#ba486c',
+                data: [] as any
+            };
+
             results.forEach((user: any) => {
                 const { username, matchesEntered, matchesWon } = user;
                 defaultValues.labels.push(username);
                 matchesEnteredDataset.data.push(matchesEntered);
                 matchesWonDataset.data.push(matchesWon);
+                matchesLostDataset.data.push(matchesEntered - matchesWon);
             });
 
             state.matchesWonData = {
@@ -57,6 +65,11 @@ const bracketStore = {
             state.matchesEnteredData = {
                 ...defaultValues,
                 datasets: [matchesEnteredDataset]
+            };
+
+            state.matchesLostData = {
+                ...defaultValues,
+                datasets: [matchesLostDataset]
             };
         },
         [types.GENERATE_MATCH_SUMMARIES](state: any) {
@@ -79,7 +92,7 @@ const bracketStore = {
                 if (index > 3 && index < 4) return;
                 const formattedPercentage = { username, percentage: matchesWon / matchesEntered };
                 if (index < 3) winPercentages.push(formattedPercentage);
-                if (index > 4) lossPercentages.push(formattedPercentage);
+                if (index > 4) lossPercentages.unshift(formattedPercentage);
             });
 
             state.winPercentages = winPercentages;

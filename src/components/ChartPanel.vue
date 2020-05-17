@@ -38,7 +38,6 @@
      min-width: 25%;
      flex-grow: 1;
      margin: 5px;
-     height: 100%;
      
      .header {
          background-color: $rps-main-secondary;
@@ -47,7 +46,7 @@
          border-radius: 0px 0px 25px 0px / 0px 0px 25px 0px;
          padding: 10px;
          margin-bottom: 10px;
-         width: 25%;
+         width: 30%;
      }
      
      .chart-content {

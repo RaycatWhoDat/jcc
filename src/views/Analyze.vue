@@ -20,6 +20,10 @@
                 headerText="Matches Won"
                 :chartData="matchesWonData"
                 :chartOptions="chartOptions" />
+            <ChartPanel
+                headerText="Matches Lost"
+                :chartData="matchesLostData"
+                :chartOptions="chartOptions" />
         </div>
     </section>
 </template>
@@ -67,6 +71,7 @@
          ...mapState({
              matchesEnteredData: ({ bracketStore }) => bracketStore.matchesEnteredData,
              matchesWonData: ({ bracketStore }) => bracketStore.matchesWonData,
+             matchesLostData: ({ bracketStore }) => bracketStore.matchesLostData,
              winPercentages: ({ bracketStore }) => {
                  return bracketStore.winPercentages.map(({ username, percentage }, id) => {
                      const fixedPercentage = (percentage * 100).toFixed(2);
